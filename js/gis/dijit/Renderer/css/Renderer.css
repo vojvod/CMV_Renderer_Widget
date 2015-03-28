@@ -1,0 +1,19 @@
+.gis_RendererDijit {
+    width: 100%;
+	height: 300px;
+	padding: 1px;
+}
+
+.gis_RendererDijit  .gis_RendererDijitContentPane{
+	padding: 1px;
+}
+
+.gis_RendererDijit  .gis_RendererDijitContentPane .contDiv{
+	margin-top: 2px;
+}
+
+.gis_RendererDijit .querySelect{
+	margin-bottom: 4px;
+	padding: 1px;
+	width:98%;
+}
