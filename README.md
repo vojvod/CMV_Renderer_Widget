@@ -1,42 +1,25 @@
-# AddWMSLayer Widget
-A widget for CMV (http://cmv.io/). It adds wms layers from combobox or from textbox.
-
-![alt tag](https://github.com/vojvod/CMV_addWMSLayer_Widget/blob/master/cmv_addwmslayer_widget.png)
+# Dynamic Feature Layer Renderer Widget
+A widget for CMV (http://cmv.io/). It renders a feature layer dynamically.
 
 ## Widget Configuration
 Add the widget configuration object to the widgets object in viewer.js.
 ```javascript
 widgets: {
     ...
-    wmslayer: {
-  	    include: true,
-  		id: 'wmslayer',
-  		type: 'titlePane',
-  		canFloat: true,
-  		position: 17,
-  		path: 'gis/dijit/WMSLayer',
-  		placeAt: 'left',
-  		title: 'Add WMS Layer',
-  		options: {
-  		    map: true
-  		  }
-  	},
-  	wmslayer2: {
+    renderer: {
         include: true,
-      	id: 'wmslayer',
-      	type: 'titlePane',
-      	canFloat: true,
-      	position: 18,
-      	path: 'gis/dijit/WMSLayer2',
-      	placeAt: 'left',
-      	title: 'Add WMS Layer',
-      	options: {
-      	    map: true
-      	}
+        id: 'renderer',
+        type: 'titlePane',
+        canFloat: false,
+        path: 'gis/dijit/Renderer',
+        title: 'Dynamic Feature Layer Renderer',
+        open: false,
+        position: 10,
+        options: 'config/renderer'
     },
     ...
 }
 ```
-Copy WMSLayer, WMSLayer2, WMSLayer.js and WMSLayer2.js to folder gis/dijit/ at your CMV installation.
+Copy Renderer folder and Renderer.js to folder gis/dijit/ at your CMV installation.
 
-Configure your proxy.
+Copy renderer.js to folder confing at your CMV installation.
