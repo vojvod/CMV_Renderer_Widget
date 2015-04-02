@@ -7,12 +7,9 @@ define([
     'dojo/_base/lang',
     'dojo/aspect',
     'dojo/_base/array',
-
     'dijit/form/FilteringSelect',
     'dojo/store/Memory',
-
     'esri/layers/FeatureLayer',
-
     'esri/symbols/SimpleLineSymbol',
     'esri/symbols/SimpleFillSymbol',
     'esri/tasks/ClassBreaksDefinition',
@@ -21,9 +18,7 @@ define([
     'esri/tasks/GenerateRendererParameters',
     'esri/tasks/GenerateRendererTask',
     'esri/Color',
-
     'dijit/form/Button',
-
     'dojo/text!./Renderer/templates/Renderer.html',
     'dojo/i18n!./Renderer/nls/resource',
     'xstyle/css!./Renderer/css/Renderer.css'
@@ -45,6 +40,7 @@ define([
 
             this.inherited(arguments);
 
+            esri.config.defaults.io.proxyUrl = this.proxy_url;
 
             this.layers = [];
             array.forEach(this.layers2render, function (layerInfo) {
@@ -176,6 +172,7 @@ define([
 
             this.querySelectMethod.set('disabled', true);
             this.querySelectNumberOfClasses.set('disabled', true);
+            this.querySelectStandardDeniationInterval.set('disabled', true);
 
         },
 
@@ -184,40 +181,60 @@ define([
                 if (this.querySelectField.item.type == 'esriFieldTypeString') {
                     this.querySelectMethod.set('disabled', true);
                     this.querySelectNumberOfClasses.set('disabled', true);
+                    this.querySelectStandardDeniationInterval.set('disabled', true);
                 } else {
                     this.querySelectMethod.set('disabled', false);
                     this.querySelectNumberOfClasses.set('disabled', false);
+                    this.querySelectStandardDeniationInterval.set('disabled', false);
                 }
             }
+        },
+
+        _onQuerySelectMethod: function () {
+            if (this.querySelectMethod.item.value == 'standard-deviation') {
+
+                dojo.style(dojo.byId('contDiv1'), "display", "none");
+                dojo.style(dojo.byId('contDiv2'), "display", "block");
+
+
+            } else {
+
+                dojo.style(dojo.byId('contDiv1'), "display", "block");
+                dojo.style(dojo.byId('contDiv2'), "display", "none");
+            }
+
         },
 
         createRenderer: function () {
             var app = this;
             var classDef;
 
-            app.sfs = new SimpleFillSymbol(
-                SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(
-                    SimpleLineSymbol.STYLE_SOLID,
-                    new Color([0, 0, 0]),
-                    0.5
-                ),
-                null
-            );
+            //app.sfs = new SimpleFillSymbol(
+            //    SimpleFillSymbol.STYLE_SOLID,
+            //    new SimpleLineSymbol(
+            //        SimpleLineSymbol.STYLE_SOLID,
+            //        new Color([0, 0, 0]),
+            //        0.5
+            //    ),
+            //    null
+            //);
 
             if (this.querySelectField.item.type == 'esriFieldTypeString') {
                 classDef = new UniqueValueDefinition();
                 classDef.attributeField = this.querySelectField.value;
                 this.querySelectMethod.set('disabled', true);
                 this.querySelectNumberOfClasses.set('disabled', true);
+                this.querySelectStandardDeniationInterval.set('disabled', true);
             } else {
                 this.querySelectMethod.set('disabled', false);
                 this.querySelectNumberOfClasses.set('disabled', false);
+                this.querySelectStandardDeniationInterval.set('disabled', false);
                 classDef = new ClassBreaksDefinition();
                 classDef.classificationField = this.querySelectField.value;
                 classDef.classificationMethod = this.querySelectMethod.value;
                 classDef.breakCount = this.querySelectNumberOfClasses.value;
-                classDef.baseSymbol = app.sfs;
+                classDef.standardDeviationInterval = this.querySelectStandardDeniationInterval.value;
+                //classDef.baseSymbol = app.sfs;
             }
 
             var colorRamp = new AlgorithmicColorRamp();
@@ -261,6 +278,8 @@ define([
             legend.layers.push({
                 layer: this.querySelectEpipedo.item.layer
             });
+
+            console.log(renderer);
 
             this.map.addLayer(this.querySelectEpipedo.item.layer);
             this.map.getLayer(this.querySelectEpipedo.item.layer.id).setRenderer(renderer);
