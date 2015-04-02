@@ -1,5 +1,5 @@
 # Dynamic Feature Layer Renderer Widget
-A widget for CMV (http://cmv.io/). It renders a feature layer dynamically. <b>It can be used for map services hosted in ArcGIS for Server version 10.1 or above.</b>
+A widget for CMV (http://cmv.io/). It renders and adds a feature layer on the map dynamically. <b>It can be used for map services hosted in ArcGIS for Server version 10.1 or above.</b>
 
 ![alt tag](https://github.com/vojvod/CMV_Renderer_Widget/blob/master/img1.jpg)
 
