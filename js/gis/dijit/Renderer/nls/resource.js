@@ -6,6 +6,7 @@ define({
 		selectQueryLayer: '*** Select Field ***',
 		selectQueryMethod: 'Classification Method',
 		selectQueryNumberOfClasses: 'Number of Classes',
+		selectStandardDeniationInterval: 'Standard deviation interval:',
 		buttonApply: 'Apply',
 		buttonReset: 'Clear',
 		legendThematicPart1: 'Thematic map: ',
