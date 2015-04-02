@@ -27,3 +27,24 @@ widgets: {
 Copy Renderer folder and Renderer.js to folder gis/dijit/ at your CMV installation.
 
 Copy renderer.js to folder confing at your CMV installation.
+
+Modify renderer.js file.
+```javascript
+define({
+    map: true,
+    identifyLayerInfos: true,
+    proxy_url: 'http://localhost:81/cmv/proxy/PHP/proxy.php',
+    layers2render: [
+        {
+            id: 'Cities',
+            url: 'http://sampleserver5.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+            fields: ['POP_CLASS','CITY_NAME','POP_RANK' ]
+        },{
+            id: 'Continent',
+            url: 'http://sampleserver5.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/1',
+            fields: ['CONTINENT']
+        }
+    ]
+});
+```
+
