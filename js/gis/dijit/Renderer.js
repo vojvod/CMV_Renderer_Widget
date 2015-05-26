@@ -283,8 +283,21 @@ define([
 
             this.map.addLayer(this.querySelectEpipedo.item.layer);
             this.map.getLayer(this.querySelectEpipedo.item.layer.id).setRenderer(renderer);
-            this.map.getLayer(this.querySelectEpipedo.item.layer.id).redraw();
-            this.map.getLayer(this.querySelectEpipedo.item.layer.id).refresh();
+            
+            
+            //this.map.getLayer(this.querySelectEpipedo.item.layer.id).redraw();
+            //this.map.getLayer(this.querySelectEpipedo.item.layer.id).refresh();
+            
+            var simos = this.map;
+            var simos2 = this.querySelectEpipedo.item.layer.id;
+            setTimeout(function(){
+                if(typeof simos.getLayer(simos2) !== 'undefined'){
+                    simos.getLayer(simos2).redraw();
+                    simos.getLayer(simos2).refresh();
+                }
+
+            },1000);
+            
             dijit.byId('legend_widget').refresh();
         },
 
